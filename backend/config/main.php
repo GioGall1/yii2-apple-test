@@ -27,6 +27,12 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
+        'urlManager' => [
+        'enablePrettyUrl' => true,
+        'showScriptName' => false,
+        'enableStrictParsing' => false,
+        'rules' => [],
+         ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
