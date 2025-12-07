@@ -12,7 +12,18 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'container' => [
+        'singletons' => [
+            \backend\repositories\AppleRepository::class => \backend\repositories\AppleRepository::class,
+            \backend\services\AppleFactory::class => \backend\services\AppleFactory::class,
+            \backend\services\AppleService::class => \backend\services\AppleService::class,
+        ],
+    ],
     'components' => [
+        'assetManager' => [
+            'basePath' => __DIR__ . '/../web/assets',
+            'baseUrl' => '/assets',
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
