@@ -6,6 +6,7 @@ use backend\models\Apple;
 use backend\models\AppleForm;
 use backend\repositories\AppleRepository;
 use backend\services\AppleService;
+use backend\enums\AppleStatus;
 use Throwable;
 use Yii;
 use yii\web\Controller;
@@ -84,7 +85,7 @@ class AppleController extends Controller
         }
 
         $apple->fell_at = $apple->fell_at - (5 * 3600);
-        $apple->status = Apple::STATUS_ROTTEN;
+        $apple->setStatusEnum(AppleStatus::ROTTEN);
         $this->repository->save($apple);
 
         Yii::$app->session->setFlash('success', 'Прошло 5 часов. Яблоко сгнило.');

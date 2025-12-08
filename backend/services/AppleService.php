@@ -2,6 +2,8 @@
 
 namespace backend\services;
 
+use backend\enums\AppleColor;
+use backend\enums\AppleStatus;
 use backend\models\Apple;
 use backend\repositories\AppleRepository;
 use backend\services\AppleFactory;
@@ -70,7 +72,13 @@ class AppleService
         }
 
         for ($i = 0; $i < $count; $i++) {
-            $apple = $this->factory->create();
+           $apple = new Apple();
+
+            $apple->setColorEnum(AppleColor::random());
+            $apple->appeared_at = time() - random_int(0, 24 * 3600);
+            $apple->fell_at = null;
+            $apple->setStatusEnum(AppleStatus::ON_TREE);
+            $apple->eaten_percent = 0;
             $this->repository->save($apple);
         }
     }

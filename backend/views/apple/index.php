@@ -4,6 +4,7 @@ use backend\models\Apple;
 use backend\models\AppleForm;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\enums\AppleStatus;
 
 /* @var $this yii\web\View */
 /* @var $apples Apple[] */
@@ -46,11 +47,9 @@ $this->title = 'Яблоки';
                 <tbody>
                 <?php foreach ($apples as $apple): ?>
                     <?php
-                    $statusClass = [
-                        Apple::STATUS_ON_TREE => 'secondary',
-                        Apple::STATUS_ON_GROUND => 'info',
-                        Apple::STATUS_ROTTEN => 'danger',
-                    ][$apple->status] ?? 'secondary';
+                  /** @var Apple $apple */
+                    $statusEnum       = $apple->getStatusEnum();
+                    $statusClass      = $statusEnum->badgeClass();
                     $availablePercent = $apple->remainingPercent();
                     ?>
                     <tr>
