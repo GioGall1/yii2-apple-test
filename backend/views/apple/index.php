@@ -81,6 +81,14 @@ $this->title = 'Яблоки';
                                     ]) ?>
                                 <?php endif; ?>
 
+                                <?php if ($apple->isOnGround() && !$apple->isRottenStatus()): ?>
+                                    <?= Html::a('Симулировать гниение', ['simulate-rot', 'id' => $apple->id], [
+                                        'class' => 'btn btn-danger btn-sm',
+                                        'data-method' => 'post',
+                                        'data-confirm' => 'Ты уверена, что хочешь мгновенно состарить яблоко на 5 часов?'
+                                    ]) ?>
+                                <?php endif; ?>
+
                                 <?php if (!$apple->isOnTree() && !$apple->isRottenStatus()): ?>
                                     <?php $rowForm = new AppleForm(); ?>
                                     <?php $activeForm = ActiveForm::begin([

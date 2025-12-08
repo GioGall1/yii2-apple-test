@@ -86,4 +86,5 @@ class Apple extends ActiveRecord
             self::STATUS_ROTTEN => 'Испорчено',
         ][$this->status] ?? 'Неизвестно';
     }
+
 }

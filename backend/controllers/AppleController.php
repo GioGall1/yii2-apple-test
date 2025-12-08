@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Apple;
 use backend\models\AppleForm;
 use backend\repositories\AppleRepository;
 use backend\services\AppleService;
@@ -70,6 +71,23 @@ class AppleController extends Controller
             Yii::$app->session->setFlash('error', $exception->getMessage());
         }
 
+        return $this->redirect(['index']);
+    }
+
+    public function actionSimulateRot($id)
+    {
+        $apple = $this->repository->get($id);
+
+        if ($apple->fell_at === null) {
+            Yii::$app->session->setFlash('error', 'Яблоко ещё не падало — симуляция невозможна.');
+            return $this->redirect(['index']);
+        }
+
+        $apple->fell_at = $apple->fell_at - (5 * 3600);
+        $apple->status = Apple::STATUS_ROTTEN;
+        $this->repository->save($apple);
+
+        Yii::$app->session->setFlash('success', 'Прошло 5 часов. Яблоко сгнило.');
         return $this->redirect(['index']);
     }
 }
